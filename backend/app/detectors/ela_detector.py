@@ -5,7 +5,17 @@ import io
 
 
 class ELADetector:
-    """Error Level Analysis — detects JPEG re-compression artifacts from editing."""
+    """
+    Error Level Analysis — detects JPEG re-compression artifacts from editing.
+
+    NOTE: ELA is only meaningful on JPEG images (and JPEG-derived PDFs).
+    For PNG/BMP/TIFF documents that were never JPEG-compressed, the ELA
+    signal is uniformly noisy and not diagnostic. This detector auto-detects
+    the source format and adjusts its verdict accordingly.
+    """
+
+    # Formats that were never JPEG-compressed — ELA will be inconclusive
+    _NON_JPEG_FORMATS = {'png', 'bmp', 'tiff', 'tif', 'gif', 'webp'}
 
     def __init__(self, quality: int = 90):
         self.quality = quality
@@ -15,6 +25,10 @@ class ELADetector:
             original = Image.open(image_path).convert('RGB')
             img_h, img_w = original.size[1], original.size[0]
 
+            # ── Format check ─────────────────────────────────────────────────
+            source_fmt = (original.format or '').lower()
+            is_non_jpeg = source_fmt in self._NON_JPEG_FORMATS
+
             buf = io.BytesIO()
             original.save(buf, 'JPEG', quality=self.quality)
             buf.seek(0)
@@ -23,14 +37,14 @@ class ELADetector:
             ela_img = ImageChops.difference(original, recompressed)
             extrema = ela_img.getextrema()
             max_diff = max(ex[1] for ex in extrema) or 1
-            scale = 255.0 / max_diff
-            ela_img = ImageEnhance.Brightness(ela_img).enhance(scale)
+            scale    = 255.0 / max_diff
+            ela_img  = ImageEnhance.Brightness(ela_img).enhance(scale)
 
             ela_array = np.array(ela_img)
-            gray = cv2.cvtColor(ela_array, cv2.COLOR_RGB2GRAY)
+            gray      = cv2.cvtColor(ela_array, cv2.COLOR_RGB2GRAY)
 
             mean_ela = float(np.mean(gray))
-            std_ela = float(np.std(gray))
+            std_ela  = float(np.std(gray))
 
             threshold = mean_ela + std_ela
             _, binary = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)
@@ -38,8 +52,8 @@ class ELADetector:
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
             binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
 
-            contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+            contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL,
+                                            cv2.CHAIN_APPROX_SIMPLE)
             suspicious_regions = []
             for contour in contours:
                 area = cv2.contourArea(contour)
@@ -53,14 +67,31 @@ class ELADetector:
                 if w < 5 or h < 5:
                     continue
                 region_mean = float(np.mean(gray[y:y + h, x:x + w]))
-                severity = min(1.0, region_mean / 180.0)
+                severity    = min(1.0, region_mean / 180.0)
                 suspicious_regions.append({
-                    'bbox': [x, y, w, h],
+                    'bbox':     [x, y, w, h],
                     'severity': round(severity, 3),
-                    'type': 'image_editing_artifact',
+                    'type':     'image_editing_artifact',
                 })
 
-            is_forged = std_ela > 25 and len(suspicious_regions) > 0
+            # ── For non-JPEG sources: ELA is inconclusive ────────────────────
+            if is_non_jpeg:
+                return {
+                    'is_forged':  False,
+                    'confidence': 0.0,
+                    'plain_english': (
+                        f"ELA is not applicable to {source_fmt.upper()} files "
+                        "(never JPEG-compressed). Skipping ELA verdict."
+                    ),
+                    'details': {
+                        'mean_ela': round(mean_ela, 2),
+                        'std_ela':  round(std_ela, 2),
+                        'note':     f'Source format {source_fmt} is lossless — ELA inconclusive',
+                    },
+                    'suspicious_regions': [],
+                }
+
+            is_forged  = std_ela > 25 and len(suspicious_regions) > 0
             confidence = min(1.0, std_ela / 60.0)
 
             if is_forged:
@@ -76,22 +107,23 @@ class ELADetector:
                 )
 
             return {
-                'is_forged': is_forged,
+                'is_forged':  is_forged,
                 'confidence': round(confidence, 4),
                 'plain_english': plain,
                 'details': {
-                    'mean_ela': round(mean_ela, 2),
-                    'std_ela': round(std_ela, 2),
+                    'mean_ela':                round(mean_ela, 2),
+                    'std_ela':                 round(std_ela, 2),
                     'suspicious_regions_count': len(suspicious_regions),
+                    'source_format':           source_fmt or 'jpeg',
                 },
                 'suspicious_regions': suspicious_regions,
             }
 
         except Exception as e:
             return {
-                'is_forged': False,
+                'is_forged':  False,
                 'confidence': 0.0,
                 'plain_english': f'ELA could not run: {e}',
-                'details': {'error': str(e)},
+                'details':    {'error': str(e)},
                 'suspicious_regions': [],
             }
