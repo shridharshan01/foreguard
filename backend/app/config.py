@@ -7,27 +7,17 @@ class Config:
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf', 'bmp', 'tiff', 'webp'}
     MAX_FILE_SIZE = 20 * 1024 * 1024  # 20 MB
 
-    # Detection thresholds
-    ELA_STD_THRESHOLD = 25          # lower = more sensitive
+    # Detection thresholds (unified — used by detectors directly)
+    ELA_STD_THRESHOLD = 25
     ELA_QUALITY = 90
     FONT_MIN_SUSPICIOUS = 3
     LAYOUT_MIN_SUSPICIOUS = 2
-    OCR_CONFIDENCE_THRESHOLD = 0.45
+    OCR_CONFIDENCE_THRESHOLD = 0.45   # unified (was split between config & detector)
 
     # Regional language support (EasyOCR codes)
     SUPPORTED_LANGUAGES = [
-        'en',   # English
-        'hi',   # Hindi
-        'ta',   # Tamil
-        'te',   # Telugu
-        'kn',   # Kannada
-        'bn',   # Bengali
-        'mr',   # Marathi  (uses Devanagari model)
-        'gu',   # Gujarati
-        'ar',   # Arabic
-        'ch_sim',  # Chinese Simplified
-        'ja',   # Japanese
-        'ko',   # Korean
+        'en', 'hi', 'ta', 'te', 'kn', 'bn', 'mr',
+        'gu', 'ar', 'ch_sim', 'ja', 'ko',
     ]
 
     @staticmethod

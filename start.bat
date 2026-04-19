@@ -1,23 +1,15 @@
 @echo off
-echo =========================================
-echo ForeGuard - Explanable AI Forgery Detection
-echo =========================================
-
-echo 1. Checking backend directory...
-if not exist "backend" (
-    echo Error: backend directory not found.
-    pause
-    exit /b
-)
-
-cd backend
-
-echo 2. Installing requirements if necessary...
-pip install -r requirements.txt
-
 echo.
-echo 3. Starting FastAPI Server...
-echo The app will be available at http://localhost:8000
+echo  ╔══════════════════════════════════════╗
+echo  ║   ForeGuard v2 — Document Forensics  ║
+echo  ╚══════════════════════════════════════╝
+echo.
+cd /d "%~dp0backend"
+echo [1/2] Installing dependencies...
+pip install -r requirements.txt --quiet
+echo [2/2] Starting ForeGuard server...
+echo.
+echo  Open http://localhost:8000 in your browser
 echo.
 python -m uvicorn app.main:app --reload --port 8000
 pause

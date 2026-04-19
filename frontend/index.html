@@ -46,13 +46,13 @@
       <span class="hero-accent">Explain Everything.</span>
     </h1>
     <p class="hero-sub">
-      5-layer forensic analysis with visual heatmaps, regional language OCR,
+      6-layer forensic analysis with visual heatmaps, regional language OCR,
       and plain-English explanations built for verification officers.
     </p>
     <div class="hero-cta">
       <a href="#upload-section" class="btn-hero">Start Analysis →</a>
       <div class="hero-stats">
-        <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Detectors</span></div>
+        <div class="hstat"><span class="hstat-n">6</span><span class="hstat-l">Detectors</span></div>
         <div class="hstat-sep"></div>
         <div class="hstat"><span class="hstat-n">12+</span><span class="hstat-l">Languages</span></div>
         <div class="hstat-sep"></div>
@@ -108,11 +108,12 @@
       <div class="config-group">
         <label class="config-label mono">Active Detectors</label>
         <div class="det-pills">
-          <span class="dpill">ELA</span>
-          <span class="dpill">Font</span>
-          <span class="dpill">Layout</span>
-          <span class="dpill">Metadata</span>
-          <span class="dpill">OCR</span>
+          <span class="dpill active">ELA</span>
+          <span class="dpill active">Font</span>
+          <span class="dpill active">Layout</span>
+          <span class="dpill active">Metadata</span>
+          <span class="dpill active">OCR</span>
+          <span class="dpill active">ML</span>
         </div>
       </div>
 
@@ -120,8 +121,9 @@
         <label class="config-label mono">System Parameters</label>
         <div class="param-list">
           <div class="param-row"><span>Verdict logic</span><span class="mono cyan">≥2 detectors OR ≥45% weighted</span></div>
-          <div class="param-row"><span>Weighting</span><span class="mono cyan">ELA:30 · Font:20 · OCR:20</span></div>
+          <div class="param-row"><span>Weighting</span><span class="mono cyan">ELA:25 · ML:20 · OCR:15</span></div>
           <div class="param-row"><span>PDF engine</span><span class="mono cyan">PyMuPDF (no Poppler)</span></div>
+          <div class="param-row"><span>OCR cache</span><span class="mono cyan">Per-language model caching</span></div>
         </div>
       </div>
 
@@ -160,6 +162,7 @@
       <div class="ld-step" id="lstep3"><span class="step-icon">◻</span>Layout Anomaly</div>
       <div class="ld-step" id="lstep4"><span class="step-icon">◻</span>Metadata / EXIF</div>
       <div class="ld-step" id="lstep5"><span class="step-icon">◻</span>OCR Text Analysis</div>
+      <div class="ld-step" id="lstep6"><span class="step-icon">◻</span>Deep Learning Model</div>
     </div>
   </div>
 </div>
@@ -173,6 +176,7 @@
       <div class="vb-eyebrow mono">FORENSIC VERDICT</div>
       <div class="vb-main" id="verdictText">—</div>
       <div class="vb-detail" id="verdictDetail"></div>
+      <div class="tampering-tags" id="tamperingTags"></div>
     </div>
     <div class="vb-center">
       <div class="conf-ring-wrap">
@@ -192,6 +196,7 @@
     <div class="vb-right">
       <div class="risk-display" id="riskBadge">—</div>
       <div class="vb-meta mono" id="processingTime"></div>
+      <div class="vb-meta mono" id="docName"></div>
     </div>
   </div>
 
@@ -294,12 +299,12 @@
     <div class="feat-card">
       <div class="feat-idx mono">05</div>
       <h3>Multilingual OCR</h3>
-      <p>EasyOCR across 12+ regional scripts including Devanagari, Tamil, Telugu, Kannada, Bengali, Arabic.</p>
+      <p>EasyOCR across 12+ regional scripts including Devanagari, Tamil, Telugu, Kannada, Bengali, Arabic — with model caching.</p>
     </div>
     <div class="feat-card">
       <div class="feat-idx mono">06</div>
-      <h3>Explainable AI</h3>
-      <p>Every detection includes plain-English reasoning, severity scores, bounding boxes, and weighted confidence.</p>
+      <h3>Deep Learning Ensemble</h3>
+      <p>Calibrated 4-signal ensemble — DCT frequency, noise residuals, saturation jumps, edge density variance — no random head.</p>
     </div>
   </div>
 </section>
@@ -313,7 +318,7 @@
   <div class="about-grid">
     <div class="about-body">
       <p>ForeGuard addresses forgery in college admissions, scholarship applications, and government verification — domains where a single fake document can have life-altering consequences.</p>
-      <p>The system uses a hybrid approach: classical computer vision (ELA, Hough transforms, connected components) combined with deep-learning OCR, delivering both accuracy and transparency.</p>
+      <p>The system uses a hybrid approach: classical computer vision (ELA, Hough transforms, connected components) combined with deep-learning OCR and a calibrated ensemble heuristic, delivering both accuracy and transparency.</p>
       <p>Every decision is explainable. Verification officers see exactly <em>which region</em> was flagged, <em>why</em> it was flagged, and with <em>what confidence</em> — not a black box.</p>
     </div>
     <div class="stack-box">
@@ -348,7 +353,7 @@
   </div>
 </footer>
 
-<!-- Modal -->
+<!-- Report Modal -->
 <div id="reportModal" class="modal" style="display:none">
   <div class="modal-box">
     <div class="modal-hdr">
@@ -360,7 +365,6 @@
 </div>
 
 <div id="toastContainer"></div>
-
 <script src="js/app.js"></script>
 </body>
 </html>

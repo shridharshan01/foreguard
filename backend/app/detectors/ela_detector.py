@@ -15,15 +15,12 @@ class ELADetector:
             original = Image.open(image_path).convert('RGB')
             img_h, img_w = original.size[1], original.size[0]
 
-            # Re-compress at target quality
             buf = io.BytesIO()
             original.save(buf, 'JPEG', quality=self.quality)
             buf.seek(0)
             recompressed = Image.open(buf).convert('RGB')
 
-            # Pixel-level difference
             ela_img = ImageChops.difference(original, recompressed)
-
             extrema = ela_img.getextrema()
             max_diff = max(ex[1] for ex in extrema) or 1
             scale = 255.0 / max_diff
@@ -35,11 +32,9 @@ class ELADetector:
             mean_ela = float(np.mean(gray))
             std_ela = float(np.std(gray))
 
-            # Adaptive threshold: flag regions significantly above mean
             threshold = mean_ela + std_ela
             _, binary = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)
 
-            # Morphological cleanup to reduce noise
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
             binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
 
@@ -48,10 +43,9 @@ class ELADetector:
             suspicious_regions = []
             for contour in contours:
                 area = cv2.contourArea(contour)
-                if area < 200:          # skip tiny noise specks
+                if area < 200:
                     continue
                 x, y, w, h = cv2.boundingRect(contour)
-                # Clamp to image bounds
                 x = max(0, min(x, img_w - 1))
                 y = max(0, min(y, img_h - 1))
                 w = min(w, img_w - x)
@@ -66,11 +60,9 @@ class ELADetector:
                     'type': 'image_editing_artifact',
                 })
 
-            # Decision: require meaningful std AND at least one real region
             is_forged = std_ela > 25 and len(suspicious_regions) > 0
             confidence = min(1.0, std_ela / 60.0)
 
-            # Plain-English explanation
             if is_forged:
                 plain = (
                     f"ELA detected {len(suspicious_regions)} region(s) with unusually high "

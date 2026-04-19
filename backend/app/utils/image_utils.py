@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 from PIL import Image
-import io
 from typing import List, Dict
 
 
@@ -24,9 +23,7 @@ class ImageUtils:
         return img
 
     @staticmethod
-    def draw_heatmap(img: np.ndarray,
-                     suspicious_regions: List[Dict]) -> np.ndarray:
-        """Overlay a colour-coded heatmap of suspicious regions."""
+    def draw_heatmap(img: np.ndarray, suspicious_regions: List[Dict]) -> np.ndarray:
         if img is None:
             raise ValueError("Image is None")
         h, w = img.shape[:2]
@@ -37,7 +34,6 @@ class ImageUtils:
             if len(bbox) < 4:
                 continue
             x, y, rw, rh = bbox
-            # Clamp strictly to image bounds
             x1 = max(0, min(int(x), w - 1))
             y1 = max(0, min(int(y), h - 1))
             x2 = max(x1 + 1, min(int(x + rw), w))
@@ -50,21 +46,11 @@ class ImageUtils:
 
         heatmap_u8 = (heatmap * 255).astype(np.uint8)
         heatmap_colored = cv2.applyColorMap(heatmap_u8, cv2.COLORMAP_JET)
-
-        # Blend: original 55%, heatmap 45%
         overlay = cv2.addWeighted(img, 0.55, heatmap_colored, 0.45, 0)
         return overlay
 
     @staticmethod
-    def draw_bounding_boxes(img: np.ndarray,
-                             suspicious_regions: List[Dict]) -> np.ndarray:
-        """Draw colour-coded bounding boxes on a copy of the image.
-
-        Colour scheme:
-          severity >= 0.70 → Red   (HIGH)
-          severity >= 0.40 → Orange (MEDIUM)
-          severity <  0.40 → Cyan  (LOW)
-        """
+    def draw_bounding_boxes(img: np.ndarray, suspicious_regions: List[Dict]) -> np.ndarray:
         if img is None:
             raise ValueError("Image is None")
         out = img.copy()
@@ -82,18 +68,16 @@ class ImageUtils:
 
             severity = float(region.get('severity', 0.5))
             if severity >= 0.70:
-                colour = (0, 0, 220)      # Red (BGR)
+                colour = (0, 0, 220)
                 label = "HIGH"
             elif severity >= 0.40:
-                colour = (0, 140, 255)    # Orange
+                colour = (0, 140, 255)
                 label = "MED"
             else:
-                colour = (200, 200, 0)    # Cyan-yellow
+                colour = (200, 200, 0)
                 label = "LOW"
 
             cv2.rectangle(out, (x1, y1), (x2, y2), colour, 2)
-
-            # Small label background
             region_type = region.get('type', '')[:18]
             tag = f"{label}:{region_type}"
             (tw, th), _ = cv2.getTextSize(tag, cv2.FONT_HERSHEY_SIMPLEX, 0.4, 1)
@@ -107,12 +91,11 @@ class ImageUtils:
 
     @staticmethod
     def pdf_to_images(pdf_path: str) -> List[Image.Image]:
-        """Convert PDF pages to PIL Images using PyMuPDF."""
         try:
             import fitz  # PyMuPDF
             doc = fitz.open(pdf_path)
             images = []
-            for i in range(min(len(doc), 5)):   # process up to 5 pages
+            for i in range(min(len(doc), 5)):
                 page = doc.load_page(i)
                 pix = page.get_pixmap(dpi=150)
                 img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)

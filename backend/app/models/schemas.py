@@ -16,15 +16,15 @@ class DetectionResult(BaseModel):
     confidence: float           # 0.0 – 1.0
     details: Dict[str, Any]
     suspicious_regions: List[Dict[str, Any]]
-    plain_english: str = ""     # human-readable explanation for XAI
+    plain_english: str = ""
 
 
 class ForgeryReport(BaseModel):
     document_name: str
-    overall_verdict: str        # "GENUINE" or "FORGED"
-    overall_confidence: float   # 0.0 – 1.0
+    overall_verdict: str
+    overall_confidence: float
     overall_risk: RiskLevel = RiskLevel.CLEAR
-    verdict: str = ""           # human-readable verdict label
+    verdict: str = ""
     detection_results: List[DetectionResult]
     summary: Dict[str, float]
     heatmap_path: Optional[str] = None

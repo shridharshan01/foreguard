@@ -14,7 +14,6 @@ class FontDetector:
             img_h, img_w = img.shape[:2]
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-            # ── Step 1: isolate text via adaptive threshold ───────────────
             binary = cv2.adaptiveThreshold(
                 gray, 255,
                 cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
@@ -22,18 +21,16 @@ class FontDetector:
                 blockSize=15, C=8
             )
 
-            # Remove large blobs (graphics/borders) — keep text-sized components
             kernel_clean = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
             binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel_clean)
 
-            # ── Step 2: connected components for character heights ────────
             num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(
                 binary, connectivity=8
             )
 
             char_heights = []
             char_boxes = []
-            for i in range(1, num_labels):   # skip background
+            for i in range(1, num_labels):
                 x = stats[i, cv2.CC_STAT_LEFT]
                 y = stats[i, cv2.CC_STAT_TOP]
                 w = stats[i, cv2.CC_STAT_WIDTH]
@@ -41,7 +38,6 @@ class FontDetector:
                 area = stats[i, cv2.CC_STAT_AREA]
                 aspect = w / h if h > 0 else 0
 
-                # Filter to character-like dimensions
                 if (5 < h < img_h * 0.15 and
                         5 < w < img_w * 0.25 and
                         area > 20 and
@@ -68,11 +64,10 @@ class FontDetector:
             details['mean_char_height_px'] = round(mean_h, 1)
             details['std_char_height_px'] = round(std_h, 1)
 
-            # Flag characters whose height deviates >2.5σ from the mean
             seen_boxes = set()
             for (x, y, w, h) in char_boxes:
                 if abs(h - mean_h) > 2.5 * std_h and std_h > 1:
-                    key = (x // 4, y // 4)   # deduplicate nearby boxes
+                    key = (x // 4, y // 4)
                     if key in seen_boxes:
                         continue
                     seen_boxes.add(key)
@@ -83,8 +78,6 @@ class FontDetector:
                         'type': 'font_size_anomaly',
                     })
 
-            # ── Step 3: horizontal text-line alignment check ──────────────
-            # Group characters by approximate row (y-bucket of mean_h)
             if mean_h > 0:
                 bucket = max(1, int(mean_h * 0.8))
                 row_x_starts: dict = {}
@@ -92,13 +85,11 @@ class FontDetector:
                     row = y // bucket
                     row_x_starts.setdefault(row, []).append(x)
 
-                # Check whether line starts are consistent (left margin)
                 left_margins = [min(xs) for xs in row_x_starts.values() if len(xs) > 2]
                 if len(left_margins) > 2:
                     margin_std = float(np.std(left_margins))
                     details['left_margin_std_px'] = round(margin_std, 1)
-                    if margin_std > img_w * 0.05:   # >5% width variation
-                        # Add one indicator region per deviant row
+                    if margin_std > img_w * 0.05:
                         median_margin = float(np.median(left_margins))
                         for row, xs in row_x_starts.items():
                             if len(xs) < 2:
@@ -134,7 +125,7 @@ class FontDetector:
                 'confidence': round(confidence, 4),
                 'plain_english': plain,
                 'details': details,
-                'suspicious_regions': suspicious_regions[:15],   # cap for response size
+                'suspicious_regions': suspicious_regions[:15],
             }
 
         except Exception as e:
