@@ -1,0 +1,546 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>ForeGuard Forgery Detection Report</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 40px;
+                    background-color: #f5f5f5;
+                }
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    background: white;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                }
+                .verdict {
+                    padding: 20px;
+                    border-radius: 5px;
+                    margin: 20px 0;
+                    text-align: center;
+                }
+                .genuine {
+                    background-color: #d4edda;
+                    color: #155724;
+                    border: 1px solid #c3e6cb;
+                }
+                .forged {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                    border: 1px solid #f5c6cb;
+                }
+                .confidence-meter {
+                    width: 100%;
+                    background-color: #e0e0e0;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    margin: 10px 0;
+                }
+                .confidence-fill {
+                    height: 30px;
+                    background-color: #007bff;
+                    text-align: center;
+                    line-height: 30px;
+                    color: white;
+                    width: 67.87451100319359%;
+                }
+                .detector-card {
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    padding: 15px;
+                    margin: 15px 0;
+                    background-color: #fafafa;
+                }
+                .suspicious-region {
+                    background-color: #fff3cd;
+                    border-left: 4px solid #ffc107;
+                    padding: 10px;
+                    margin: 10px 0;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+                .heatmap {
+                    max-width: 100%;
+                    margin: 20px 0;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🔍 ForeGuard Forgery Detection Report</h1>
+                <p><strong>Document:</strong> fake aadhar.jpeg</p>
+                <p><strong>Analysis Time:</strong> 2026-04-18 21:05:10</p>
+                
+                <div class="verdict forged">
+                    <h2>Verdict: FORGED</h2>
+                    <div class="confidence-meter">
+                        <div class="confidence-fill">Confidence: 67.9%</div>
+                    </div>
+                </div>
+        
+                <h3>📊 Suspicion Heatmap</h3>
+                <img src="reports/heatmap_f362b04e-b6d8-4558-a23b-85c179709aa7.jpg" class="heatmap" alt="Suspicion Heatmap">
+            <h3>🔬 Detection Results</h3>
+                <div class="detector-card">
+                    <h4>Error Level Analysis (ELA) - ⚠️ SUSPICIOUS</h4>
+                    <p><strong>Confidence:</strong> 39.4%</p>
+                    <p><strong>Details:</strong> {
+  "mean_ela": 14.481446540880503,
+  "std_ela": 19.68627750798398,
+  "suspicious_regions_count": 26
+}</p>
+            <p><strong>Suspicious Regions:</strong></p>
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 11.4%<br>
+                            <strong>Location:</strong> [52, 364, 32, 22]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 13.9%<br>
+                            <strong>Location:</strong> [266, 360, 22, 16]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 12.2%<br>
+                            <strong>Location:</strong> [304, 359, 48, 17]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 12.3%<br>
+                            <strong>Location:</strong> [415, 356, 26, 20]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 10.5%<br>
+                            <strong>Location:</strong> [464, 352, 48, 32]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 10.5%<br>
+                            <strong>Location:</strong> [563, 351, 28, 25]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 10.8%<br>
+                            <strong>Location:</strong> [380, 351, 36, 25]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 15.4%<br>
+                            <strong>Location:</strong> [556, 341, 55, 6]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 14.0%<br>
+                            <strong>Location:</strong> [21, 336, 524, 16]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 10.3%<br>
+                            <strong>Location:</strong> [216, 208, 63, 24]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 15.2%<br>
+                            <strong>Location:</strong> [480, 202, 120, 124]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 13.3%<br>
+                            <strong>Location:</strong> [482, 176, 29, 16]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 11.3%<br>
+                            <strong>Location:</strong> [216, 176, 64, 24]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 10.7%<br>
+                            <strong>Location:</strong> [352, 174, 33, 18]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 11.1%<br>
+                            <strong>Location:</strong> [240, 147, 41, 21]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 12.3%<br>
+                            <strong>Location:</strong> [216, 141, 22, 24]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 9.6%<br>
+                            <strong>Location:</strong> [276, 130, 60, 38]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 11.2%<br>
+                            <strong>Location:</strong> [296, 120, 79, 20]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 14.0%<br>
+                            <strong>Location:</strong> [231, 120, 26, 16]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 12.8%<br>
+                            <strong>Location:</strong> [259, 71, 70, 26]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 13.9%<br>
+                            <strong>Location:</strong> [449, 70, 33, 26]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 12.9%<br>
+                            <strong>Location:</strong> [329, 68, 60, 29]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 13.9%<br>
+                            <strong>Location:</strong> [326, 54, 31, 13]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 13.8%<br>
+                            <strong>Location:</strong> [303, 47, 24, 21]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 12.1%<br>
+                            <strong>Location:</strong> [378, 44, 75, 52]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> image_editing<br>
+                            <strong>Severity:</strong> 11.7%<br>
+                            <strong>Location:</strong> [68, 24, 52, 80]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    </div>
+                <div class="detector-card">
+                    <h4>OCR & Text Analysis - ⚠️ SUSPICIOUS</h4>
+                    <p><strong>Confidence:</strong> 100.0%</p>
+                    <p><strong>Details:</strong> {
+  "text_blocks_found": 15,
+  "avg_ocr_confidence": 0.4730146495609339,
+  "suspicious_regions_count": 10
+}</p>
+            <p><strong>Suspicious Regions:</strong></p>
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_inconsistency<br>
+                            <strong>Severity:</strong> 56.1%<br>
+                            <strong>Location:</strong> [355, 345, 238, 44]<br>
+                            <strong>Details:</strong> Font size anomaly: 44 vs avg 28
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 60.3%<br>
+                            <strong>Location:</strong> [299, 41, 61, 28]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.40
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 75.0%<br>
+                            <strong>Location:</strong> [366, 44, 78, 24]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.25
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 98.7%<br>
+                            <strong>Location:</strong> [214, 114, 176, 31]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.01
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 82.5%<br>
+                            <strong>Location:</strong> [214, 172, 121, 28]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.17
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 63.8%<br>
+                            <strong>Location:</strong> [241, 209, 30, 16]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.36
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 89.3%<br>
+                            <strong>Location:</strong> [45, 355, 88, 32]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.11
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 85.4%<br>
+                            <strong>Location:</strong> [161, 354, 133, 31]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.15
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 93.4%<br>
+                            <strong>Location:</strong> [355, 345, 238, 44]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.07
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> text_quality_issue<br>
+                            <strong>Severity:</strong> 74.4%<br>
+                            <strong>Location:</strong> [298, 346, 63, 34]<br>
+                            <strong>Details:</strong> Low OCR confidence: 0.26
+                        </div>
+                    </div>
+                <div class="detector-card">
+                    <h4>Font Consistency Analysis - ⚠️ SUSPICIOUS</h4>
+                    <p><strong>Confidence:</strong> 100.0%</p>
+                    <p><strong>Details:</strong> {
+  "text_regions_found": 115,
+  "suspicious_regions_count": 216
+}</p>
+            <p><strong>Suspicious Regions:</strong></p>
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [77, 370, 19, 15]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [99, 364, 15, 14]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [77, 364, 17, 14]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [44, 364, 32, 23]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [240, 363, 14, 16]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [116, 363, 19, 14]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [535, 362, 15, 14]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [199, 362, 21, 22]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [185, 362, 15, 14]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> font_texture_anomaly<br>
+                            <strong>Severity:</strong> 100.0%<br>
+                            <strong>Location:</strong> [166, 362, 16, 15]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    </div>
+                <div class="detector-card">
+                    <h4>Layout Anomaly Detection - ⚠️ SUSPICIOUS</h4>
+                    <p><strong>Confidence:</strong> 100.0%</p>
+                    <p><strong>Details:</strong> {
+  "layout_elements": 225,
+  "suspicious_regions_count": 6
+}</p>
+            <p><strong>Suspicious Regions:</strong></p>
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> margin_violation_top<br>
+                            <strong>Severity:</strong> 70.0%<br>
+                            <strong>Location:</strong> [22, 32, 614, 368]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> margin_violation_bottom<br>
+                            <strong>Severity:</strong> 70.0%<br>
+                            <strong>Location:</strong> [22, 32, 614, 368]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> margin_violation_top<br>
+                            <strong>Severity:</strong> 70.0%<br>
+                            <strong>Location:</strong> [71, 29, 48, 71]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> broken_line_tampering<br>
+                            <strong>Severity:</strong> 80.0%<br>
+                            <strong>Location:</strong> [255, 390, 363, 6]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> broken_line_tampering<br>
+                            <strong>Severity:</strong> 80.0%<br>
+                            <strong>Location:</strong> [23, 340, 610, 6]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    
+                        <div class="suspicious-region">
+                            <strong>Type:</strong> broken_line_tampering<br>
+                            <strong>Severity:</strong> 80.0%<br>
+                            <strong>Location:</strong> [43, 195, 165, 114]<br>
+                            <strong>Details:</strong> N/A
+                        </div>
+                    </div>
+                <div class="detector-card">
+                    <h4>Metadata Analysis - ✅ CLEAR</h4>
+                    <p><strong>Confidence:</strong> 0.0%</p>
+                    <p><strong>Details:</strong> {
+  "metadata_issues": [],
+  "suspicious_regions_count": 0
+}</p>
+            </div>
+                <h3>📈 Detection Summary</h3>
+                <table>
+                    <tr>
+                        <th>Detector</th>
+                        <th>Status</th>
+                        <th>Confidence</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Error Level Analysis (ELA)</td>
+                        <td>Forged</td>
+                        <td>39.4%</td>
+                    </tr>
+            
+                    <tr>
+                        <td>OCR & Text Analysis</td>
+                        <td>Forged</td>
+                        <td>100.0%</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Font Consistency Analysis</td>
+                        <td>Forged</td>
+                        <td>100.0%</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Layout Anomaly Detection</td>
+                        <td>Forged</td>
+                        <td>100.0%</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Metadata Analysis</td>
+                        <td>Genuine</td>
+                        <td>0.0%</td>
+                    </tr>
+            
+                </table>
+            </div>
+        </body>
+        </html>
+        

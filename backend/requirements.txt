@@ -1,0 +1,15 @@
+fastapi>=0.114.0
+uvicorn>=0.30.6
+python-multipart>=0.0.9
+opencv-python>=4.10.0.84
+numpy>=1.26.4
+pillow>=10.4.0
+easyocr>=1.7.1
+scikit-image>=0.24.0
+pydantic>=2.9.1
+PyMuPDF>=1.24.9
+reportlab>=4.0.7
+matplotlib>=3.7.2
+PyPDF2>=3.0.1
+torch>=2.2.0
+torchvision>=0.17.0

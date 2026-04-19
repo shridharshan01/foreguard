@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForeGuard — AI Document Forensics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+          <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
+          <polygon points="14,7 21,11 21,17 14,21 7,17 7,11" stroke="#00e5ff" stroke-width="1" fill="rgba(0,229,255,0.07)"/>
+          <circle cx="14" cy="14" r="2.5" fill="#00e5ff"/>
+        </svg>
+      </div>
+      <span class="logo-name">ForeGuard</span>
+      <span class="logo-tag">FORENSICS</span>
+    </a>
+    <div class="nav-links">
+      <a href="#upload-section" class="nav-link">Analyze</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#about" class="nav-link">About</a>
+      <div class="nav-status"><span class="status-dot"></span><span class="mono">System Online</span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-eyebrow mono">[ AI-POWERED DOCUMENT FORENSICS ]</div>
+    <h1 class="hero-title">
+      Detect Forgery.<br>
+      <span class="hero-accent">Explain Everything.</span>
+    </h1>
+    <p class="hero-sub">
+      5-layer forensic analysis with visual heatmaps, regional language OCR,
+      and plain-English explanations built for verification officers.
+    </p>
+    <div class="hero-cta">
+      <a href="#upload-section" class="btn-hero">Start Analysis →</a>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Detectors</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n">12+</span><span class="hstat-l">Languages</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n">XAI</span><span class="hstat-l">Explainable</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Upload -->
+<section class="page-section" id="upload-section">
+  <div class="section-header">
+    <span class="sec-tag mono">// 01</span>
+    <h2 class="sec-title">Upload Document</h2>
+  </div>
+  <div class="upload-grid">
+    <div class="drop-zone" id="dropZone">
+      <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.bmp,.tiff,.webp" hidden>
+      <div class="drop-icon-wrap">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <rect x="10" y="6" width="32" height="40" rx="3" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
+          <path d="M18 20h16M18 26h16M18 32h10" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M36 2v12h12" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M36 2l12 12" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="drop-title">Drop your document here</div>
+      <div class="drop-formats mono">PDF · PNG · JPG · BMP · TIFF · WebP · Max 20 MB</div>
+      <button class="btn-browse" id="uploadBtn">Browse Files</button>
+      <div class="drop-filename" id="fileInfo">No file selected</div>
+      <span class="corner-acc tl"></span>
+      <span class="corner-acc tr"></span>
+      <span class="corner-acc bl"></span>
+      <span class="corner-acc br"></span>
+    </div>
+
+    <div class="config-panel">
+      <div class="config-group">
+        <label class="config-label mono">OCR Language Pack</label>
+        <select id="langSelect" class="fg-select">
+          <option value="en">English only</option>
+          <option value="en,hi">English + Hindi (हिन्दी)</option>
+          <option value="en,ta">English + Tamil (தமிழ்)</option>
+          <option value="en,te">English + Telugu (తెలుగు)</option>
+          <option value="en,kn">English + Kannada (ಕನ್ನಡ)</option>
+          <option value="en,bn">English + Bengali (বাংলা)</option>
+          <option value="en,gu">English + Gujarati (ગુજરાતી)</option>
+          <option value="en,ar">English + Arabic (عربي)</option>
+          <option value="en,hi,ta">English + Hindi + Tamil</option>
+        </select>
+      </div>
+
+      <div class="config-group">
+        <label class="config-label mono">Active Detectors</label>
+        <div class="det-pills">
+          <span class="dpill">ELA</span>
+          <span class="dpill">Font</span>
+          <span class="dpill">Layout</span>
+          <span class="dpill">Metadata</span>
+          <span class="dpill">OCR</span>
+        </div>
+      </div>
+
+      <div class="config-group">
+        <label class="config-label mono">System Parameters</label>
+        <div class="param-list">
+          <div class="param-row"><span>Verdict logic</span><span class="mono cyan">≥2 detectors OR ≥45% weighted</span></div>
+          <div class="param-row"><span>Weighting</span><span class="mono cyan">ELA:30 · Font:20 · OCR:20</span></div>
+          <div class="param-row"><span>PDF engine</span><span class="mono cyan">PyMuPDF (no Poppler)</span></div>
+        </div>
+      </div>
+
+      <div class="config-actions">
+        <button class="btn-run" id="analyzeBtn" disabled>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2l11 6-11 6V2z"/></svg>
+          Run Forensic Analysis
+        </button>
+        <button class="btn-rst" id="resetBtn">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay" style="display:none">
+  <div class="loading-panel">
+    <div class="scan-beam"></div>
+    <div class="ld-spinner">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" class="spin-cw">
+        <circle cx="40" cy="40" r="34" stroke="rgba(0,229,255,0.2)" stroke-width="1.5"/>
+        <circle cx="40" cy="40" r="34" stroke="#00e5ff" stroke-width="1.5"
+          stroke-dasharray="20 194" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+      </svg>
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" class="spin-ccw" style="position:absolute;top:14px;left:14px">
+        <circle cx="26" cy="26" r="20" stroke="rgba(0,229,255,0.15)" stroke-width="1"/>
+        <circle cx="26" cy="26" r="20" stroke="#00e5ff" stroke-width="1"
+          stroke-dasharray="8 118" stroke-linecap="round"/>
+      </svg>
+      <div class="ld-dot"></div>
+    </div>
+    <div class="ld-msg mono" id="loadingMsg">Initializing pipeline…</div>
+    <div class="ld-steps">
+      <div class="ld-step" id="lstep1"><span class="step-icon">◻</span>Error Level Analysis</div>
+      <div class="ld-step" id="lstep2"><span class="step-icon">◻</span>Font Consistency</div>
+      <div class="ld-step" id="lstep3"><span class="step-icon">◻</span>Layout Anomaly</div>
+      <div class="ld-step" id="lstep4"><span class="step-icon">◻</span>Metadata / EXIF</div>
+      <div class="ld-step" id="lstep5"><span class="step-icon">◻</span>OCR Text Analysis</div>
+    </div>
+  </div>
+</div>
+
+<!-- Results -->
+<section id="resultsSection" style="display:none">
+
+  <!-- Verdict Banner -->
+  <div class="verdict-banner" id="verdictBanner">
+    <div class="vb-left">
+      <div class="vb-eyebrow mono">FORENSIC VERDICT</div>
+      <div class="vb-main" id="verdictText">—</div>
+      <div class="vb-detail" id="verdictDetail"></div>
+    </div>
+    <div class="vb-center">
+      <div class="conf-ring-wrap">
+        <svg class="conf-svg" viewBox="0 0 120 120" width="130" height="130">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="7"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#00e5ff" stroke-width="7"
+            stroke-dasharray="314" stroke-dashoffset="314"
+            stroke-linecap="round" id="confCircle" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="conf-inner">
+          <span class="conf-n" id="confNum">0</span>
+          <span class="conf-pct mono">%</span>
+        </div>
+      </div>
+      <div class="conf-label mono">forgery confidence</div>
+    </div>
+    <div class="vb-right">
+      <div class="risk-display" id="riskBadge">—</div>
+      <div class="vb-meta mono" id="processingTime"></div>
+    </div>
+  </div>
+
+  <!-- Visuals -->
+  <div class="page-section">
+    <div class="section-header">
+      <span class="sec-tag mono">// 02</span>
+      <h2 class="sec-title">Visual Analysis</h2>
+    </div>
+    <div class="vis-grid">
+      <div class="vis-panel">
+        <div class="vis-label mono">ORIGINAL DOCUMENT</div>
+        <div class="vis-frame" id="origFrame">
+          <img id="originalPreview" alt="">
+          <div class="vis-empty">Upload a document to see preview</div>
+        </div>
+      </div>
+      <div class="vis-panel">
+        <div class="vis-label mono">ANNOTATED — BOUNDING BOXES</div>
+        <div class="vis-frame" id="annFrame">
+          <img id="annotatedPreview" alt="">
+          <div class="vis-empty">Awaiting analysis</div>
+        </div>
+        <div class="vis-legend">
+          <span class="vleg"><span class="vleg-dot" style="background:#e53e3e"></span>High risk</span>
+          <span class="vleg"><span class="vleg-dot" style="background:#ed8936"></span>Medium</span>
+          <span class="vleg"><span class="vleg-dot" style="background:#00e5ff"></span>Low</span>
+        </div>
+      </div>
+      <div class="vis-panel">
+        <div class="vis-label mono">SUSPICION HEATMAP</div>
+        <div class="vis-frame" id="hmFrame">
+          <img id="heatmapPreview" alt="">
+          <div class="vis-empty">Awaiting analysis</div>
+        </div>
+        <div class="vis-legend"><span class="vleg">Warmer = more suspicious regions</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detectors -->
+  <div class="page-section">
+    <div class="section-header">
+      <span class="sec-tag mono">// 03</span>
+      <h2 class="sec-title">Detector Results</h2>
+    </div>
+    <div class="det-results-grid" id="detectorsGrid"></div>
+  </div>
+
+  <!-- Summary + Regions -->
+  <div class="page-section">
+    <div class="section-header">
+      <span class="sec-tag mono">// 04</span>
+      <h2 class="sec-title">Report & Findings</h2>
+    </div>
+    <div class="bottom-grid">
+      <div class="summary-box">
+        <div class="box-title mono">ANALYSIS SUMMARY</div>
+        <div id="summaryStats" class="summary-body"></div>
+        <div class="summary-actions">
+          <button class="btn-report" id="viewReportBtn">📄 View Full Report</button>
+          <button class="btn-report btn-report-ghost" id="downloadReportBtn">💾 Download HTML</button>
+        </div>
+      </div>
+      <div class="regions-box">
+        <div class="box-title mono">SUSPICIOUS REGIONS <span class="region-count" id="regionCount"></span></div>
+        <div id="suspiciousRegionsList" class="regions-scroll"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="page-section features-section" id="features">
+  <div class="section-header">
+    <span class="sec-tag mono">// 05</span>
+    <h2 class="sec-title">Detection Engine</h2>
+  </div>
+  <div class="feats-grid">
+    <div class="feat-card">
+      <div class="feat-idx mono">01</div>
+      <h3>Error Level Analysis</h3>
+      <p>JPEG re-compression reveals editing artifacts. Edited regions have different error levels from untouched areas.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-idx mono">02</div>
+      <h3>Font Forensics</h3>
+      <p>Connected-component character height distribution catches mixed fonts from copy-paste text replacements.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-idx mono">03</div>
+      <h3>Layout Integrity</h3>
+      <p>White-patch coverup detection, broken ruling lines, and noise texture discontinuities reveal structural tampering.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-idx mono">04</div>
+      <h3>Metadata & EXIF</h3>
+      <p>Editing software signatures, creation/modification date gaps, and EXIF inconsistencies indicate post-creation edits.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-idx mono">05</div>
+      <h3>Multilingual OCR</h3>
+      <p>EasyOCR across 12+ regional scripts including Devanagari, Tamil, Telugu, Kannada, Bengali, Arabic.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-idx mono">06</div>
+      <h3>Explainable AI</h3>
+      <p>Every detection includes plain-English reasoning, severity scores, bounding boxes, and weighted confidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="page-section about-section" id="about">
+  <div class="section-header">
+    <span class="sec-tag mono">// 06</span>
+    <h2 class="sec-title">About ForeGuard</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>ForeGuard addresses forgery in college admissions, scholarship applications, and government verification — domains where a single fake document can have life-altering consequences.</p>
+      <p>The system uses a hybrid approach: classical computer vision (ELA, Hough transforms, connected components) combined with deep-learning OCR, delivering both accuracy and transparency.</p>
+      <p>Every decision is explainable. Verification officers see exactly <em>which region</em> was flagged, <em>why</em> it was flagged, and with <em>what confidence</em> — not a black box.</p>
+    </div>
+    <div class="stack-box">
+      <div class="box-title mono">TECH STACK</div>
+      <div class="stack-wrap">
+        <span class="stack-tag">FastAPI</span>
+        <span class="stack-tag">OpenCV</span>
+        <span class="stack-tag">EasyOCR</span>
+        <span class="stack-tag">PyMuPDF</span>
+        <span class="stack-tag">Pillow</span>
+        <span class="stack-tag">Scikit-image</span>
+        <span class="stack-tag">NumPy</span>
+        <span class="stack-tag">Pydantic v2</span>
+        <span class="stack-tag">Uvicorn</span>
+        <span class="stack-tag">Python 3.10+</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg width="18" height="18" viewBox="0 0 28 28" fill="none">
+        <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="#00e5ff"/>
+      </svg>
+      <span>ForeGuard</span>
+    </div>
+    <div class="mono footer-copy">Explainable AI · Document Forensics · 2025</div>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div id="reportModal" class="modal" style="display:none">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <span class="mono" style="color:#00e5ff;font-size:.8rem">FORENSIC REPORT</span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
