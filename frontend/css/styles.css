@@ -496,3 +496,39 @@ nav, section, .hero, footer, .loading-overlay, .modal,
   .hero-stats { flex-direction: column; gap: .75rem; }
   .verdict-banner { flex-direction: column; }
 }
+
+/* ── Multi-page strip ────────────────────────────────────────────────────── */
+.page-strip {
+  margin-bottom: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+.page-strip-title {
+  font-size: .65rem; color: var(--cyan); letter-spacing: .18em;
+  margin-bottom: 1rem; opacity: .8;
+}
+.page-strip-row {
+  display: flex; gap: .75rem; flex-wrap: wrap;
+}
+.page-card {
+  width: 110px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--bg-3);
+  padding: .5rem; cursor: pointer; transition: all .2s;
+  display: flex; flex-direction: column; align-items: center; gap: .3rem;
+}
+.page-card:hover   { border-color: var(--cyan); transform: translateY(-2px); }
+.page-card-active  { border-color: var(--cyan) !important; box-shadow: 0 0 12px var(--cyan-glow); }
+.page-card-bad     { border-color: rgba(245,101,101,.35); }
+.page-card-ok      { border-color: rgba(72,187,120,.25); }
+.page-card-thumb   { width: 90px; height: 64px; overflow: hidden;
+                      border-radius: 4px; background: var(--bg-2);
+                      display: flex; align-items: center; justify-content: center; }
+.page-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.page-thumb-empty  { font-size: 1.5rem; color: var(--text-3); }
+.page-card-label   { font-size: .65rem; color: var(--text-3); letter-spacing: .08em; }
+.page-card-conf    { font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700; }
+.conf-bad { color: var(--red); }
+.conf-ok  { color: var(--green); }
+.page-card-status  { font-size: .65rem; color: var(--text-3); text-align: center; }
